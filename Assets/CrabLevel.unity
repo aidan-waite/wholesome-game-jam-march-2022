@@ -350,7 +350,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.34456214, g: 0.6423822, b: 0.8396226, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -587,7 +587,8 @@ GameObject:
   m_Component:
   - component: {fileID: 647568422}
   - component: {fileID: 647568421}
-  m_Layer: 0
+  - component: {fileID: 647568423}
+  m_Layer: 10
   m_Name: CrabMcCrab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -659,6 +660,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &647568423
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647568420}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &819634009
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,6 +1008,9 @@ MonoBehaviour:
   PosterOjects:
     serializedVersion: 2
     m_Bits: 128
+  NPCs:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!4 &1628806201
 Transform:
   m_ObjectHideFlags: 0
