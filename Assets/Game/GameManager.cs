@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,10 +19,13 @@ public class GameManager : MonoBehaviour
     bool DoubleJump;
 
     //CrabLevelVariables
-    bool isWet;
+    bool isWet = false;
     public BoxCollider2D puddle;
     public LayerMask PuddleObjects;
     public LayerMask PosterOjects;
+    public LayerMask NPCs;
+    //I couldn't think of a better way lol...
+    bool stopSpam = false;
 
     Vector3 playerFacingLeft = new Vector3(-1, 1, 1);
     Vector3 playerFacingRight = new Vector3(1, 1, 1);
@@ -35,6 +39,33 @@ public class GameManager : MonoBehaviour
     {
         movePlayer();
         GetWet();
+        interactCrab();
+    }
+
+    void interactCrab()
+    {
+        if (Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, NPCs) && isWet && !stopSpam){
+            //Lose Condition
+            print("you lose!");
+            StartCoroutine(RestartLevel());
+            stopSpam = true;
+
+
+        }
+        if(Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, NPCs) && isWet == false && !stopSpam){
+            //win codition
+            print("You Win!");
+            StartCoroutine(RestartLevel());
+            stopSpam = true;
+        }
+    }
+
+    IEnumerator RestartLevel()
+    {
+        yield return new WaitForSeconds(1);
+        Scene CurrentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(CurrentScene.name);
+
     }
 
      void GetWet()
