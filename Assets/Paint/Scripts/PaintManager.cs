@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class PaintManager : MonoBehaviour
 {
+  public Slider BrushSizeSlider;
+  public NiceColors NiceColors;
+  public GameObject ColorButtonPrefab;
+  public GridLayoutGroup ButtonColorGrid;
+
   GameObject canvas;
   Texture2D texture;
   Sprite sprite;
   SpriteRenderer sr;
   MeshCollider mc;
+  List<GameObject> buttonColorButtons = new List<GameObject>();
 
   int width;
   int height;
+
+  Color brushColor;
 
   void Start()
   {
@@ -32,6 +41,8 @@ public class PaintManager : MonoBehaviour
 
     print("canvas width: " + width);
     print("canvas height: " + height);
+
+    setupColors();
   }
 
   void Update()
@@ -43,17 +54,34 @@ public class PaintManager : MonoBehaviour
 
       Color[] cols = texture.GetPixels(0);
 
-      for (int a = -2; a <= 2; a++)
+      int size = Mathf.FloorToInt(BrushSizeSlider.value);
+      for (int a = -size; a <= size; a++)
       {
-        for (int b = -2; b <= 2; b++)
+        for (int b = -size; b <= size; b++)
         {
-          cols[ind(x + a, y + b)] = Color.green;
+          int i = ind(x + a, y + b);
+          if (i > 0 && i < cols.Length)
+          {
+            cols[i] = brushColor;
+          }
         }
       }
 
       texture.SetPixels(cols, 0);
       texture.Apply();
     }
+  }
+
+  public void RandomizeColors()
+  {
+    for (int x = 0; x < buttonColorButtons.Count; x++)
+    {
+      Destroy(buttonColorButtons[x]);
+    }
+
+    buttonColorButtons.Clear();
+    NiceColors.RandomizeColors();
+    setupColors();
   }
 
   // Convert x,y to the flattened array for GetPixels
@@ -75,10 +103,32 @@ public class PaintManager : MonoBehaviour
       {
         cols[x] = color;
       }
-
     }
 
     texture.SetPixels(cols, 0);
     texture.Apply();
+  }
+
+  void setupColors()
+  {
+    for (int x = 0; x < 48; x++)
+    {
+      Color randomColor = NiceColors.GetRandomColor();
+      GameObject button = Instantiate(ColorButtonPrefab);
+      button.transform.SetParent(ButtonColorGrid.transform);
+      button.GetComponent<Image>().color = randomColor;
+      button.GetComponent<Button>().onClick.AddListener(delegate { setBrushColor(randomColor); });
+      buttonColorButtons.Add(button);
+
+      if (x == 0)
+      {
+        brushColor = randomColor;
+      }
+    }
+  }
+
+  void setBrushColor(Color color)
+  {
+    brushColor = color;
   }
 }
