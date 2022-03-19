@@ -15,6 +15,13 @@ public class GameManager : MonoBehaviour
     public LayerMask groundObjects;
     public float CheckRadius;
     public bool isGrounded;
+    bool DoubleJump;
+
+    //CrabLevelVariables
+    bool isWet;
+    public BoxCollider2D puddle;
+    public LayerMask PuddleObjects;
+    public LayerMask PosterOjects;
 
     Vector3 playerFacingLeft = new Vector3(-1, 1, 1);
     Vector3 playerFacingRight = new Vector3(1, 1, 1);
@@ -26,15 +33,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, groundObjects);
         movePlayer();
-
+        GetWet();
     }
 
-    private void FixedUpdate()
+     void GetWet()
     {
-
-
+        if (Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, PuddleObjects) && isWet == false)
+        {
+            isWet = true;
+            print("you are in a puddle");
+        }
     }
 
     void setupPosters()
@@ -53,6 +62,11 @@ public class GameManager : MonoBehaviour
 
     void movePlayer()
     {
+        isGrounded = Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, groundObjects);
+        if (isGrounded)
+        {
+            DoubleJump = true;
+        }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             PlayerRB.velocity = new Vector2(-PlayerMovementSpeed, PlayerRB.velocity.y);
@@ -69,6 +83,14 @@ public class GameManager : MonoBehaviour
             PlayerRB.AddForce(new Vector2(0f, JumpForce));
             return;
         }
+        else if(DoubleJump && Input.GetKeyDown(KeyCode.Space))
+        {
+            PlayerRB.AddForce(new Vector2(0f, JumpForce));
+            DoubleJump = false;
+            return;
+
+        }
+
 
         //slows player down without feeling like you're walking on ice.
         if ((Input.GetKeyUp(KeyCode.A)) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
