@@ -40,14 +40,21 @@ public class GameManager : MonoBehaviour
   {
     if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
     {
-      PlayerRB.AddForce(new Vector2(-PlayerMovementSpeed, 0f));
+      //PlayerRB.AddForce(new Vector2(-PlayerMovementSpeed, 0f));
+      PlayerRB.velocity = new Vector2(-PlayerMovementSpeed, PlayerRB.velocity.y);
       Player.transform.localScale = playerFacingLeft;
+
     }
     else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
     {
-      PlayerRB.AddForce(new Vector2(PlayerMovementSpeed, 0f));
+      //PlayerRB.AddForce(new Vector2(PlayerMovementSpeed, 0f));
+      PlayerRB.velocity = new Vector2(PlayerMovementSpeed, PlayerRB.velocity.y);
       Player.transform.localScale = playerFacingRight;
     }
+        if ((Input.GetKeyUp(KeyCode.A)) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            PlayerRB.velocity = (PlayerRB.velocity / 3);
+        }
   }
 
   // http://answers.unity.com/answers/802424/view.html
