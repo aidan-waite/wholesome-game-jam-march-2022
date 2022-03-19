@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.IO;
 
 public class PaintManager : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class PaintManager : MonoBehaviour
 
   void Update()
   {
-    if (Input.GetKey(KeyCode.Mouse0))
+    if (Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.y > 80)
     {
       int x = Mathf.RoundToInt(Input.mousePosition.x);
       int y = Mathf.RoundToInt(Input.mousePosition.y);
@@ -130,5 +131,12 @@ public class PaintManager : MonoBehaviour
   void setBrushColor(Color color)
   {
     brushColor = color;
+  }
+
+  public void SaveTexture()
+  {
+    var path = Application.persistentDataPath + "/posterTexture.png";
+    print("Save texture to " + path);
+    File.WriteAllBytes(path, (byte[])texture.EncodeToPNG());
   }
 }
