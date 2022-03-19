@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class PaintManager : MonoBehaviour
 {
@@ -112,7 +113,7 @@ public class PaintManager : MonoBehaviour
 
   void setupColors()
   {
-    for (int x = 0; x < 48; x++)
+    for (int x = 0; x < 52; x++)
     {
       Color randomColor = NiceColors.GetRandomColor();
       GameObject button = Instantiate(ColorButtonPrefab);
@@ -133,10 +134,12 @@ public class PaintManager : MonoBehaviour
     brushColor = color;
   }
 
-  public void SaveTexture()
+  public void Continue()
   {
     var path = Application.persistentDataPath + "/posterTexture.png";
     print("Save texture to " + path);
     File.WriteAllBytes(path, (byte[])texture.EncodeToPNG());
+
+    SceneManager.LoadScene("JumpTutorial");
   }
 }
