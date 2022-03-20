@@ -8,6 +8,7 @@ public class SpawnPlayer : MonoBehaviour
 
   void Awake()
   {
-    Instantiate(PlayerPrefab, transform.position, Quaternion.identity);
+    GameObject p = Instantiate(PlayerPrefab, new Vector3(transform.position.x, transform.position.y, 0f), Quaternion.identity);
+    p.name = "Player";
   }
 }

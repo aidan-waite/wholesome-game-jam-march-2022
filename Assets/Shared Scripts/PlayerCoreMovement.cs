@@ -11,7 +11,9 @@ public class PlayerCoreMovement : MonoBehaviour
   public LayerMask groundObjects;
   public float CheckRadius = 0.22f;
   public bool IsGrounded;
+  public AudioClip JumpAudioClip;
 
+  AudioSource audioSource;
   bool canDoubleJump;
 
   Vector3 playerFacingLeft = new Vector3(-1, 1, 1);
@@ -23,6 +25,7 @@ public class PlayerCoreMovement : MonoBehaviour
   {
     rb = GetComponent<Rigidbody2D>();
     anim = GetComponent<Animator>();
+    audioSource = GetComponent<AudioSource>();
   }
 
   void Update()
@@ -51,11 +54,13 @@ public class PlayerCoreMovement : MonoBehaviour
 
     if (IsGrounded && Input.GetKeyDown(KeyCode.Space))
     {
+      audioSource.PlayOneShot(JumpAudioClip);
       rb.AddForce(new Vector2(0f, JumpForce));
       return;
     }
     else if (canDoubleJump && Input.GetKeyDown(KeyCode.Space))
     {
+      audioSource.PlayOneShot(JumpAudioClip);
       rb.AddForce(new Vector2(0f, JumpForce));
       canDoubleJump = false;
       return;

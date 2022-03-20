@@ -7,8 +7,15 @@ public class PosterFrame : MonoBehaviour
 {
   public LayerMask PlayerObjects;
   public float CheckRadius = 0.22f;
+  public AudioClip Hit;
 
+  AudioSource audioSource;
   bool placed = false;
+
+  void Start()
+  {
+    audioSource = GetComponent<AudioSource>();
+  }
 
   void Update()
   {
@@ -19,6 +26,7 @@ public class PosterFrame : MonoBehaviour
 
     if (Physics2D.OverlapCircle(transform.position, CheckRadius, PlayerObjects))
     {
+      audioSource.PlayOneShot(Hit);
       placed = true;
 
       var path = Application.persistentDataPath + "/posterTexture.png";
