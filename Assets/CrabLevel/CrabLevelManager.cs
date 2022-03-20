@@ -11,15 +11,29 @@ public class CrabLevelManager : MonoBehaviour
   public LayerMask PuddleObjects;
   public LayerMask TowelObjects;
   public LayerMask NPCs;
-  public Transform GroundCheck;
   public float CheckRadius = 0.22f;
   public TextMeshProUGUI DryStatusText;
   public CapsuleCollider2D PlayerCollider;
 
+  Transform groundCheck;
   bool didInteractCrab = false;
+  bool didSetup = false;
+
+  IEnumerator Start()
+  {
+    yield return new WaitForEndOfFrame();
+    yield return new WaitForEndOfFrame();
+    yield return new WaitForEndOfFrame();
+
+  }
 
   void Update()
   {
+    if (!didSetup)
+    {
+      return;
+    }
+
     checkPuddle();
     checkTowel();
     interactCrab();
@@ -27,7 +41,7 @@ public class CrabLevelManager : MonoBehaviour
 
   void interactCrab()
   {
-    if (!Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, NPCs))
+    if (!Physics2D.OverlapCircle(groundCheck.position, CheckRadius, NPCs))
     {
       return;
     }
@@ -63,7 +77,7 @@ public class CrabLevelManager : MonoBehaviour
 
   void checkTowel()
   {
-    if (isWet && Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, TowelObjects))
+    if (isWet && Physics2D.OverlapCircle(groundCheck.position, CheckRadius, TowelObjects))
     {
       isWet = false;
       DryStatusText.text = "status: dry";

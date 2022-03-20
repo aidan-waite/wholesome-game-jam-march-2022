@@ -23,6 +23,10 @@ public class PaintManager : MonoBehaviour
   int width;
   int height;
 
+  bool isBrushSizeToolTipActive = true;
+  bool isContinueToolTipActive = true;
+  bool isDrawingToolTipActive = true;
+
   Color brushColor;
 
   void Start()
@@ -49,7 +53,13 @@ public class PaintManager : MonoBehaviour
 
   void Update()
   {
-    if (Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.y > 80)
+    if (isBrushSizeToolTipActive || isContinueToolTipActive || isDrawingToolTipActive)
+    {
+      return;
+    }
+
+    print("mouse pos: " + Input.mousePosition);
+    if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse2)) && Input.mousePosition.y > 80)
     {
       int x = Mathf.RoundToInt(Input.mousePosition.x);
       int y = Mathf.RoundToInt(Input.mousePosition.y);
@@ -141,5 +151,15 @@ public class PaintManager : MonoBehaviour
     File.WriteAllBytes(path, (byte[])texture.EncodeToPNG());
 
     SceneManager.LoadScene("JumpTutorial");
+  }
+
+  public void DidCloseBrushToolTip()
+  {
+    isBrushSizeToolTipActive = false;
+  }
+
+  public void DidCloseContinueToolTip()
+  {
+
   }
 }
