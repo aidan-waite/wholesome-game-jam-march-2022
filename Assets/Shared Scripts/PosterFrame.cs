@@ -40,7 +40,7 @@ public class PosterFrame : MonoBehaviour
 
       GetComponent<SpriteRenderer>().color = Color.white;
       GetComponent<SpriteRenderer>().sprite = sprite;
-      transform.localScale = Vector3.one / 11f;
+      transform.localScale = Vector3.one / 8f;
     }
   }
 

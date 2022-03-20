@@ -123,7 +123,7 @@ public class PaintManager : MonoBehaviour
 
   void setupColors()
   {
-    for (int x = 0; x < 52; x++)
+    for (int x = 0; x < 48; x++)
     {
       Color randomColor = NiceColors.GetRandomColor();
       GameObject button = Instantiate(ColorButtonPrefab);
