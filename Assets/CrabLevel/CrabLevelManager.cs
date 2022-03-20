@@ -13,21 +13,29 @@ public class CrabLevelManager : MonoBehaviour
   public LayerMask NPCs;
   public float CheckRadius = 0.22f;
   public TextMeshProUGUI DryStatusText;
+  public GameObject Crab;
+  public AudioClip WetClip;
 
-  public CapsuleCollider2D playerCollider;
-  public Transform groundCheck;
+  CapsuleCollider2D playerCollider;
+  Transform groundCheck;
+  DialogManager dialogManager;
   bool didInteractCrab = false;
   bool didSetup = false;
+  AudioSource audioSource;
 
   IEnumerator Start()
   {
     yield return new WaitForEndOfFrame();
     yield return new WaitForEndOfFrame();
     yield return new WaitForEndOfFrame();
-    GameObject player = GameObject.Find("Player");
-    print("player:" + player);
+
+    GameObject player = GameObject.Find("Sadie");
     groundCheck = player.transform.Find("GroundCheck");
     playerCollider = player.GetComponent<CapsuleCollider2D>();
+    dialogManager = GameObject.Find("DialogManager").GetComponent<DialogManager>();
+    dialogManager.LoadDialogWithFilename("crabdialog");
+    audioSource = GetComponent<AudioSource>();
+
     didSetup = true;
   }
 
@@ -45,37 +53,37 @@ public class CrabLevelManager : MonoBehaviour
 
   void interactCrab()
   {
-    if (!Physics2D.OverlapCircle(groundCheck.position, CheckRadius, NPCs))
+    float dist = Vector3.Distance(groundCheck.transform.position, Crab.transform.position);
+    if (dist < 1f && !didInteractCrab)
     {
-      return;
+      didInteractCrab = true;
+
+      if (isWet)
+      {
+        print("You lose!");
+        dialogManager.PlayDialog("crabby-exchange", 0, 0);
+      }
+      else
+      {
+        print("You Win!");
+        dialogManager.PlayDialog("crabby-exchange", 1);
+      }
     }
 
-    if (didInteractCrab)
+    if (dist > 1.5f && didInteractCrab)
     {
-      return;
-    }
-
-    didInteractCrab = true;
-
-    if (isWet)
-    {
-      // Lose Condition
-      print("you lose!");
-    }
-    else
-    {
-      // Win codition
-      print("You Win!");
+      didInteractCrab = false;
     }
   }
 
   void checkPuddle()
   {
-    print("check puddle isWet:" + isWet);
     if (!isWet && playerCollider.bounds.Intersects(puddle.bounds))
     {
+      audioSource.PlayOneShot(WetClip);
       isWet = true;
       DryStatusText.text = "status: wet";
+      DryStatusText.transform.localScale *= 2;
       print("you are in a puddle");
     }
   }
@@ -86,6 +94,7 @@ public class CrabLevelManager : MonoBehaviour
     {
       isWet = false;
       DryStatusText.text = "status: dry";
+      DryStatusText.transform.localScale /= 2;
       print("you dried off on the towel");
     }
   }

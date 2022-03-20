@@ -1,7 +1,16 @@
 fileFormatVersion: 2
 guid: 8092cab19630e4c9393b4f7e4846f1d8
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 6914496449733577771
+    second: Holly Sprite Sheet_0
+  - first:
+      213: 4076793841905992885
+    second: Holly Sprite Sheet_1
+  - first:
+      213: -9206614347262523774
+    second: Holly Sprite Sheet_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,7 +41,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -101,7 +110,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Holly Sprite Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 24
+        width: 30
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2cc11fe2e935ff50800000000000000
+      internalID: 6914496449733577771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Holly Sprite Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 24
+        width: 30
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b48e41466ea39830800000000000000
+      internalID: 4076793841905992885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Holly Sprite Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 24
+        width: 30
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2860767a7098b3080800000000000000
+      internalID: -9206614347262523774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
