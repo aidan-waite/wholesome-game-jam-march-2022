@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -45,7 +46,7 @@ public class DialogManager : MonoBehaviour
     }
     else
     {
-      playerCoreMovement = GameObject.Find("Player").GetComponent<PlayerCoreMovement>();
+      playerCoreMovement = GameObject.Find("Sadie").GetComponent<PlayerCoreMovement>();
       DialogContainer.SetActive(false);
     }
   }
@@ -151,6 +152,11 @@ public class DialogManager : MonoBehaviour
           print("end case");
           currentState = DialogTextState.closed;
           StartCoroutine("hideDialog");
+
+          if (endEarlyInd == -1)
+          {
+            StartCoroutine("GoToNextScene");
+          }
         }
         else
         {
@@ -161,6 +167,12 @@ public class DialogManager : MonoBehaviour
         }
         return;
     }
+  }
+
+  IEnumerator GoToNextScene()
+  {
+    yield return new WaitForSeconds(1.5f);
+    SceneManager.LoadScene("JumpLevel");
   }
 
   void ShowDialog()

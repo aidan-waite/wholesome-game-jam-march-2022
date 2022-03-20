@@ -33,8 +33,8 @@ public class FollowerCoreMovement : MonoBehaviour
 
   void move()
   {
-    float dist = Vector3.Distance(Target.position, transform.position);
-    if (dist > 1f)
+    float dist = Mathf.Abs(Target.position.x - transform.position.x);
+    if (dist > 0.85f)
     {
       // Target is on our left so move left
       if (Target.position.x < transform.position.x)

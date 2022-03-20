@@ -15,9 +15,15 @@ EditorBuildSettings:
     path: Assets/JumpTutorial/JumpTutorial.unity
     guid: 0b655a381021a4d31b425b6dcae10d9b
   - enabled: 1
+    path: Assets/JumpLevel/JumpLevel.unity
+    guid: 20e33f744148e164da4170732a9ec1bd
+  - enabled: 1
     path: Assets/CrabLevel/CrabLevel.unity
     guid: 4ade660f1ff6bff47a300d8b3727fd6b
   - enabled: 1
     path: Assets/JumpLevel2/JumpLevel2.unity
     guid: 8b89165bdb0c8a24da4f65e6b8ca803a
+  - enabled: 1
+    path: Assets/FinalLevel/FinalLevel.unity
+    guid: 544522f7034c082429c761116f46fc71
   m_configObjects: {}

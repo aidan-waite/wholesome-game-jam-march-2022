@@ -322,9 +322,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1148227189319380712, guid: 390926ebfd5ed489ca8d0e035ddc5b81, type: 3}
+      propertyPath: m_SortingOrder
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148227190166081378, guid: 390926ebfd5ed489ca8d0e035ddc5b81, type: 3}
+      propertyPath: m_SortingOrder
+      value: 81
+      objectReference: {fileID: 0}
     - target: {fileID: 3459323156755141636, guid: 390926ebfd5ed489ca8d0e035ddc5b81, type: 3}
       propertyPath: m_Name
       value: Characters
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370692822761659449, guid: 390926ebfd5ed489ca8d0e035ddc5b81, type: 3}
+      propertyPath: m_SortingOrder
+      value: 81
       objectReference: {fileID: 0}
     - target: {fileID: 5572398897058602384, guid: 390926ebfd5ed489ca8d0e035ddc5b81, type: 3}
       propertyPath: m_RootOrder

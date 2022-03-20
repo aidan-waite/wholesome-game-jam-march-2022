@@ -6,7 +6,7 @@ using TMPro;
 public class TimeCanvas : MonoBehaviour
 {
   public TextMeshProUGUI TimeText;
-  int elapsedSeconds = 0;
+  public int elapsedSeconds = 0;
 
   void Awake()
   {
