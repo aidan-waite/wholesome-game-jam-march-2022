@@ -80,6 +80,7 @@ public class CrabLevelManager : MonoBehaviour
   {
     if (!isWet && playerCollider.bounds.Intersects(puddle.bounds))
     {
+      audioSource.volume = 0.2f;
       audioSource.PlayOneShot(WetClip);
       isWet = true;
       DryStatusText.text = "status: wet";

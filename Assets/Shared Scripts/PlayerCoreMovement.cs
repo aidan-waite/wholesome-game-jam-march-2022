@@ -54,12 +54,14 @@ public class PlayerCoreMovement : MonoBehaviour
 
     if (IsGrounded && Input.GetKeyDown(KeyCode.Space))
     {
+      audioSource.volume = 0.2f;
       audioSource.PlayOneShot(JumpAudioClip);
       rb.AddForce(new Vector2(0f, JumpForce));
       return;
     }
     else if (canDoubleJump && Input.GetKeyDown(KeyCode.Space))
     {
+      audioSource.volume = 0.2f;
       audioSource.PlayOneShot(JumpAudioClip);
       rb.AddForce(new Vector2(0f, JumpForce));
       canDoubleJump = false;

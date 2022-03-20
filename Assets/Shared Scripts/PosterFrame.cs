@@ -8,13 +8,18 @@ public class PosterFrame : MonoBehaviour
   public LayerMask PlayerObjects;
   public float CheckRadius = 0.22f;
   public AudioClip Hit;
+  public GameObject PosterEffect;
 
   AudioSource audioSource;
   bool placed = false;
+  Texture2D texture;
 
   void Start()
   {
     audioSource = GetComponent<AudioSource>();
+
+    var path = Application.persistentDataPath + "/posterTexture.png";
+    texture = LoadPNG(Application.persistentDataPath + "/posterTexture.png");
   }
 
   void Update()
@@ -26,13 +31,14 @@ public class PosterFrame : MonoBehaviour
 
     if (Physics2D.OverlapCircle(transform.position, CheckRadius, PlayerObjects))
     {
+      StartCoroutine("spawnEffect");
+
+      audioSource.volume = 0.2f;
       audioSource.PlayOneShot(Hit);
       placed = true;
-
-      var path = Application.persistentDataPath + "/posterTexture.png";
-      Texture2D texture = LoadPNG(Application.persistentDataPath + "/posterTexture.png");
       Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
 
+      GetComponent<SpriteRenderer>().color = Color.white;
       GetComponent<SpriteRenderer>().sprite = sprite;
       transform.localScale = Vector3.one / 11f;
     }
@@ -51,5 +57,12 @@ public class PosterFrame : MonoBehaviour
       tex.LoadImage(fileData); //..this will auto-resize the texture dimensions.
     }
     return tex;
+  }
+
+  IEnumerator spawnEffect()
+  {
+    GameObject obj = Instantiate(PosterEffect, transform.position, transform.rotation);
+    yield return new WaitForSeconds(2f);
+    Destroy(obj);
   }
 }
