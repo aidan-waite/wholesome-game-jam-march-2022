@@ -12,6 +12,7 @@ public class PaintManager : MonoBehaviour
   public NiceColors NiceColors;
   public GameObject ColorButtonPrefab;
   public GridLayoutGroup ButtonColorGrid;
+  public GameObject Lightbox;
 
   GameObject canvas;
   Texture2D texture;
@@ -58,7 +59,6 @@ public class PaintManager : MonoBehaviour
       return;
     }
 
-    print("mouse pos: " + Input.mousePosition);
     if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse2)) && Input.mousePosition.y > 80)
     {
       int x = Mathf.RoundToInt(Input.mousePosition.x);
@@ -156,10 +156,26 @@ public class PaintManager : MonoBehaviour
   public void DidCloseBrushToolTip()
   {
     isBrushSizeToolTipActive = false;
+    checkHideLightbox();
   }
 
   public void DidCloseContinueToolTip()
   {
+    isContinueToolTipActive = false;
+    checkHideLightbox();
+  }
 
+  public void DidCloseDrawingToolTip()
+  {
+    isDrawingToolTipActive = false;
+    checkHideLightbox();
+  }
+
+  public void checkHideLightbox()
+  {
+    if (!isBrushSizeToolTipActive && !isContinueToolTipActive && !isDrawingToolTipActive)
+    {
+      Lightbox.SetActive(false);
+    }
   }
 }

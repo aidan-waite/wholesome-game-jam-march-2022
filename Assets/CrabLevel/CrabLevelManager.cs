@@ -13,9 +13,9 @@ public class CrabLevelManager : MonoBehaviour
   public LayerMask NPCs;
   public float CheckRadius = 0.22f;
   public TextMeshProUGUI DryStatusText;
-  public CapsuleCollider2D PlayerCollider;
 
-  Transform groundCheck;
+  public CapsuleCollider2D playerCollider;
+  public Transform groundCheck;
   bool didInteractCrab = false;
   bool didSetup = false;
 
@@ -24,7 +24,11 @@ public class CrabLevelManager : MonoBehaviour
     yield return new WaitForEndOfFrame();
     yield return new WaitForEndOfFrame();
     yield return new WaitForEndOfFrame();
-
+    GameObject player = GameObject.Find("Player");
+    print("player:" + player);
+    groundCheck = player.transform.Find("GroundCheck");
+    playerCollider = player.GetComponent<CapsuleCollider2D>();
+    didSetup = true;
   }
 
   void Update()
@@ -67,7 +71,8 @@ public class CrabLevelManager : MonoBehaviour
 
   void checkPuddle()
   {
-    if (!isWet && PlayerCollider.bounds.Intersects(puddle.bounds))
+    print("check puddle isWet:" + isWet);
+    if (!isWet && playerCollider.bounds.Intersects(puddle.bounds))
     {
       isWet = true;
       DryStatusText.text = "status: wet";
